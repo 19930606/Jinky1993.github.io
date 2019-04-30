@@ -1,0 +1,480 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="小金渣blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="iOS,Block">
+
+
+    <meta name="description" content="1.block概述
+Block是一种特殊的数据类型,其可以正常定义变量、作为参数、作为返回值,特殊地,Block还可以保存一段代码,在需要的时候调用,目前Block已经广泛应用于iOS开发中,常...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>iOS-Block | 小金渣blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="小金渣blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="小金渣">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 拒绝三次握手，有事说事。 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">小金渣blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Objective-C/"><i class="fa "></i>Objective-C</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Swift/"><i class="fa "></i>Swift</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Flag/"><i class="fa "></i>Flag</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/进阶/"><i class="fa "></i>进阶</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="iOS-Block">
+            
+	            iOS-Block
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/Objective-C/">Objective-C</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Block/">Block</a> <a class="tag-link" href="/tags/iOS/">iOS</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/01/26</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="1-block概述"><a href="#1-block概述" class="headerlink" title="1.block概述"></a>1.block概述</h3><ul>
+<li>Block是一种特殊的数据类型,其可以正常定义变量、作为参数、作为返回值,特殊地,Block还可以保存一段代码,在需要的时候调用,目前Block已经广泛应用于iOS开发中,常用于GCD、动画、排序及各类回调。</li>
+</ul>
+<hr>
+<h3 id="2-block作用"><a href="#2-block作用" class="headerlink" title="2.block作用"></a>2.block作用</h3><ul>
+<li>保存一段代码</li>
+</ul>
+<hr>
+<h3 id="3-block声明"><a href="#3-block声明" class="headerlink" title="3.block声明"></a>3.block声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//block声明: 返回值(^block变量名)(参数)</span><br><span class="line">void(^block)();</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="4-block定义"><a href="#4-block定义" class="headerlink" title="4.block定义"></a>4.block定义</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//block定义:3种方式 ==&gt; ^(参数)&#123;&#125;</span><br><span class="line"></span><br><span class="line">//1.</span><br><span class="line">void(^block1)() = ^()&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//2.如果没有参数,参数可以隐藏. 如果有参数,定义的时候必须写参数,而且必须要有参数变量名</span><br><span class="line">void(^block2)(int) = ^(int a)&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//3.block返回可以省略,不管有没有返回值都可以省略</span><br><span class="line">int(^block3)() = ^int&#123;</span><br><span class="line">return 3;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="5-block类型"><a href="#5-block类型" class="headerlink" title="5.block类型"></a>5.block类型</h3><p>NSGlobalBlock （<strong>NSConcreteGlobalBlock）<br>NSStackBlock （</strong>NSConcreteStackBlock）<br>NSMallocBlock （__NSConcreteMallocBlock）</p>
+<p><img src="/2019/01/26/iOS-Block/block.png" alt="enter description here"></p>
+<hr>
+<p><strong>1.NSGlobalBlock</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void(^block)(void) = ^(void) &#123;     </span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">block();</span><br><span class="line">NSLog(@&quot;%@&quot;,block);</span><br></pre></td></tr></table></figure></p>
+<p><strong>控制台打印：</strong></p>
+<blockquote>
+<p>2018-08-04 13:49:15.074751+0800 Block[32487:7895146] &lt;<strong>NSGlobalBlock</strong>: 0x1071e8088&gt;</p>
+</blockquote>
+<p><strong>2.NSMallocBlock</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int a = 10;</span><br><span class="line">void(^block)(void) = ^(void) &#123;</span><br><span class="line">NSLog(@&quot;%d&quot;,a);</span><br><span class="line">&#125;;</span><br><span class="line">block();</span><br><span class="line">NSLog(@&quot;%@&quot;,block);</span><br></pre></td></tr></table></figure></p>
+<p><strong>控制台打印：</strong></p>
+<blockquote>
+<p>2018-08-04 13:53:49.489064+0800 Block[32567:7900709] 10<br>2018-08-04 13:53:49.489328+0800 Block[32567:7900709] &lt;<strong>NSMallocBlock</strong>: 0x60000025e870&gt;</p>
+</blockquote>
+<p><strong>3. NSStackBlock</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">int a = 10;</span><br><span class="line">void(^block)(void) = ^(void) &#123;</span><br><span class="line">//        NSLog(@&quot;%d&quot;,a);</span><br><span class="line">&#125;;</span><br><span class="line">block();</span><br><span class="line">//    NSLog(@&quot;%@&quot;,block);</span><br><span class="line"></span><br><span class="line">NSLog(@&quot;%@&quot;,^(void) &#123;</span><br><span class="line">NSLog(@&quot;%d&quot;,a);</span><br><span class="line">&#125;);</span><br><span class="line">```  </span><br><span class="line">**控制台打印：**</span><br><span class="line">&gt;2018-08-04 14:00:38.216673+0800 Block[32615:7906112] &lt;__NSStackBlock__: 0x7ffeeb385b38&gt;</span><br><span class="line">***</span><br><span class="line"></span><br><span class="line">### 6\.block使用场景</span><br><span class="line"></span><br><span class="line">#### ①保存代码</span><br><span class="line"></span><br><span class="line">**1\.在一个方法中定义，在另一个方法中调用**</span><br><span class="line">注：基本不用，有点多此一举</span><br></pre></td></tr></table></figure></p>
+<p>#import “ViewController.h”</p>
+<p>@interface ViewController ()</p>
+<p>//block怎么声明,就如何定义成属性<br>@property (nonatomic,strong) void(^block)();</p>
+<p>@end</p>
+<p>@implementation ViewController</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];</li>
+</ul>
+<p>void(^block)() = ^{<br>NSLog(@”调用了block”);<br>};<br>_block = block;</p>
+<p>}</p>
+<p>-(void)touchesBegan:(NSSet<uitouch *> <em>)touches withEvent:(UIEvent </em>)event<br>{<br>_block();<br>}</uitouch></p>
+<p>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**2.在一个类中定义，在另一个类中调用**</span><br><span class="line">需求：1.tableview展示3个cell，打电话、发短信、发邮件</span><br><span class="line">- **cellItem.h**</span><br></pre></td></tr></table></figure></p>
+<p>#import &lt;Foundation/Foundation.h&gt;</p>
+<p>@interface cellItem : NSObject<br>//设计模型:控件需要展示什么内容,就定义什么属性<br>@property (nonatomic,strong) NSString *title;</p>
+<p>//保存每个cell做的事情<br>@property (nonatomic,strong) void(^block)();</p>
+<p>+(instancetype)itemWitTitle:(NSString *)title;</p>
+<p>@end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- **cellItem.m**</span><br></pre></td></tr></table></figure>
+<p>#import “cellItem.h”</p>
+<p>@implementation cellItem</p>
+<p>+(instancetype)itemWitTitle:(NSString <em>)title<br>{<br>cellItem </em>item = [[self alloc]init];<br>item.title = title;<br>return item;<br>}<br>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- **JKYTableViewController.m**</span><br></pre></td></tr></table></figure></p>
+<p>#import “JKYTableViewController.h”</p>
+<p>#import “cellItem.h”</p>
+<p>@interface JKYTableViewController ()</p>
+<p>@property (nonatomic,strong) NSArray *items;</p>
+<p>@end</p>
+<p>@implementation JKYTableViewController</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];<br>cellItem <em>item1 = [cellItem itemWitTitle:@”打电话”];<br>cellItem </em>item2 = [cellItem itemWitTitle:@”发短信”];<br>cellItem *item3 = [cellItem itemWitTitle:@”发邮件”];<br>_items = @[item1,item2,item3];</li>
+</ul>
+<p>//block保存代码<br>item1.block = ^{<br>NSLog(@”打电话”);<br>};<br>item2.block = ^{<br>NSLog(@”发短信”);<br>};<br>item3.block = ^{<br>NSLog(@”发邮件”);<br>};<br>}</p>
+<p>-(NSInteger)numberOfSectionsInTableView:(UITableView <em>)tableView{<br>return _items.count;<br>}<br>-(UITableViewCell </em>)tableView:(UITableView <em>)tableView cellForRowAtIndexPath:(NSIndexPath </em>)indexPath<br>{<br>static NSString <em>ID = @”cell”;<br>UITableViewCell </em>cell = [tableView dequeueReusableCellWithIdentifier:ID];<br>if (cell == nil) {<br>cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];<br>}</p>
+<p>cellItem *item = self.items[indexPath.row];<br>cell.textLabel.text = item.title;</p>
+<p>return cell;<br>}</p>
+<p>-(void)tableView:(UITableView <em>)tableView didSelectRowAtIndexPath:(NSIndexPath </em>)indexPath<br>{<br>cellItem *item = self.items[indexPath.row];<br>if (item.block) {<br>item.block();<br>}<br>}<br>@end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ②代理传值</span><br><span class="line"></span><br><span class="line">**需求：** 点击viewController跳转到modalViewController，再将字符串@&quot;123&quot;反向传值给ViewController</span><br><span class="line">- **modalViewController.h**</span><br></pre></td></tr></table></figure>
+<p>#import &lt;UIKit/UIKit.h&gt;</p>
+<p>@interface modalViewController : UIViewController<br>@property (nonatomic,strong) void(^block)(NSString *value);</p>
+<p>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- **modalViewController.m**</span><br></pre></td></tr></table></figure></p>
+<p>#import “modalViewController.h”</p>
+<p>@interface modalViewController ()</p>
+<p>@end</p>
+<p>@implementation modalViewController</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];<br>// Do any additional setup after loading the view.<br>}</li>
+</ul>
+<p>-(void)touchesBegan:(NSSet<uitouch *> <em>)touches withEvent:(UIEvent </em>)event<br>{<br>//传值给ViewController<br>//@”123”</uitouch></p>
+<p>if (_block) {<br>_block(@”123”);<br>}<br>}</p>
+<p>@end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- ** ViewController.m**</span><br></pre></td></tr></table></figure>
+<p>#import “ViewController.h”</p>
+<p>#import “modalViewController.h”<br>/**<br>传值:1.只要拿到对方就能传值</p>
+<p>顺传:给需要传值的对象,直接定义属性就能传值<br>逆传:用代理,block,就是用block去代替代理</p>
+<p>*/</p>
+<p>@interface ViewController ()</p>
+<p>@end</p>
+<p>@implementation ViewController</p>
+<p>-(void)touchesBegan:(NSSet<uitouch *> <em>)touches withEvent:(UIEvent </em>)event<br>{<br>modalViewController *modalVC = [[modalViewController alloc]init];<br>modalVC.view.backgroundColor = [UIColor cyanColor];</uitouch></p>
+<p>//<br>modalVC.block = ^(NSString *value) {<br>NSLog(@”%@--%@”,[self class],value);<br>};</p>
+<p>[self presentViewController:modalVC animated:YES completion:nil];<br>}</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];<br>}<br>@end<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- **控制台打印：**</span><br><span class="line">&gt;2018-08-04 19:09:31.114136+0800 block代理传值[33591:8085166] ViewController--123</span><br><span class="line"></span><br><span class="line">#### ③参数使用</span><br><span class="line"></span><br><span class="line">- **总结**</span><br><span class="line">1\.怎么区分参数是block,就看有没有^,只要有^,就把block当做参数</span><br><span class="line">2\.把block当做参数,并不是马上调用block,什么时候调用由方法内部决定</span><br><span class="line">3\.什么时候把block当做参数使用:做的事情由外界决定,但是什么时候做由内部决定</span><br><span class="line"></span><br><span class="line">**需求：**封装一个计算器,提供一个计算方法,怎么计算由外界决定,什么时候计算由内部决定</span><br><span class="line">- **CalculateManager.h**</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>#import &lt;Foundation/Foundation.h&gt;</p>
+<p>@interface CalculateManager : NSObject</p>
+<p>@property (nonatomic,assign) NSInteger result;<br>//计算<br>-(void)calculate:(NSInteger(^)(NSInteger result))calculateBlock;</p>
+<p>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- **CalculateManager.m**</span><br></pre></td></tr></table></figure></p>
+<p>#import “CalculateManager.h”</p>
+<p>@implementation CalculateManager</p>
+<p>-(void)calculate:(NSInteger (^)(NSInteger))calculateBlock<br>{<br>if (calculateBlock) {<br>_result = calculateBlock(_result);<br>}<br>}</p>
+<p>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-  **ViewController.m**</span><br></pre></td></tr></table></figure></p>
+<p>#import “ViewController.h”</p>
+<p>#import “CalculateManager.h”</p>
+<p>@interface ViewController ()</p>
+<p>@end</p>
+<p>@implementation ViewController</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];</li>
+</ul>
+<p>//    [UIView animateWithDuration:0 animations:^{<br>//    }];</p>
+<p>CalculateManager <em>manageer = [[CalculateManager alloc]init];<br>[manageer calculate:^NSInteger(NSInteger result) {<br>result += 5;<br>result += 6;<br>result </em>= 2;<br>return result;<br>}];</p>
+<p>NSLog(@”%ld”,manageer.result);</p>
+<p>}<br>@end<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### ④返回值</span><br><span class="line"></span><br><span class="line">block返回值常见于框架中，如：masonry中常见的链式编程，把所有的语句用**.**号连接起来。好处，可读性强</span><br></pre></td></tr></table></figure></p>
+<p>#import “ViewController.h”</p>
+<p>@interface ViewController ()</p>
+<p>@end</p>
+<p>@implementation ViewController</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];</li>
+</ul>
+<p>//    make.center.equalTo(ws.view);<br>self.test();<br>}</p>
+<p>-(void(^)())test<br>{<br>NSLog(@”%s”,<strong>func</strong>);<br>//    void(^block)() = ^{<br>//<br>//    };<br>//    return block;</p>
+<p>return ^{</p>
+<p>NSLog(@”调用了block”);</p>
+<p>};</p>
+<p>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**需求：**封装一个计算器,提供一个加号方法</span><br><span class="line">- **CalculateManager.h**</span><br></pre></td></tr></table></figure>
+<p>#import &lt;Foundation/Foundation.h&gt;</p>
+<p>@interface CalculateManager : NSObject</p>
+<p>@property (nonatomic,assign) NSInteger reslt;</p>
+<p>//-(CalculateManager <em>)add:(NSInteger)value;<br>-(CalculateManager </em>(^)(NSInteger))add;</p>
+<p>@end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- **CalculateManager.m**</span><br></pre></td></tr></table></figure>
+<p>#import “CalculateManager.h”</p>
+<p>@implementation CalculateManager</p>
+<p>//-(CalculateManager *)add:(NSInteger)value<br>//{<br>//    _reslt += value;<br>//    return self;<br>//}</p>
+<p>-(CalculateManager *(^)(NSInteger))add<br>{<br>return ^(NSInteger value){</p>
+<p>_reslt += value;<br>return self;<br>};<br>}</p>
+<p>@end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-  **ViewController.m**</span><br></pre></td></tr></table></figure>
+<p>#import “ViewController.h”</p>
+<p>#import “CalculateManager.h”</p>
+<p>@interface ViewController ()</p>
+<p>@end</p>
+<p>@implementation ViewController</p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];</li>
+</ul>
+<p>CalculateManager *manager = [[CalculateManager alloc]init];<br>//    [[[manager add:5]add:6]add:7];<br>manager.add(5).add(10).add(20);<br>NSLog(@”%ld”,manager.reslt);</p>
+<p>}</p>
+<p>@end</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">***</span><br><span class="line"></span><br><span class="line">### 7\.block内存管理</span><br><span class="line"></span><br><span class="line">- **block是不是一个对象**</span><br><span class="line">查阅苹果官方文档，Block是一个Objective-C对象。Blocks are Objective-C objects。</span><br><span class="line"></span><br><span class="line">#### MRC</span><br><span class="line"></span><br><span class="line">引申</span><br><span class="line"></span><br><span class="line">**如何判断当前文件是ARC还是MRC？**</span><br><span class="line">1.dealloc 能否调用super，只有MRC才能调用super</span><br><span class="line">2.能否使用retain，release，如果能用就是MRC</span><br></pre></td></tr></table></figure>
+<p>-(void)dealloc<br>{<br>[super dealloc];<br>}<br>//ARC环境下报错，ARC forbids explicit message send of ‘dealloc’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-  **MRC了解常识：**</span><br><span class="line">1.MRC没有strong、weak、局部变量对象</span><br><span class="line">2.MRC给成员属性赋值，一定要使用set方法，不能直接访问下划线成员属性赋值</span><br><span class="line"></span><br><span class="line">- **MRC：管理block**⭐️⭐️⭐️</span><br><span class="line">1\.只要block没有引用外部局部变量，block放在全局区</span><br><span class="line">2\.只要block引用外部局部变量，block放在栈里面</span><br><span class="line">3\.blcok只能使用copy，不能使用retain，使用retain，block还是在栈里面</span><br><span class="line"></span><br><span class="line">***</span><br><span class="line"></span><br><span class="line">#### ARC</span><br><span class="line"></span><br><span class="line">- **ARC管理原则：**只要有一个对象没有被强指针修饰就会被销毁，默认局部变量对象都是强指针，存放到堆里面</span><br><span class="line">- **ARC：管理block**⭐️⭐️⭐️</span><br><span class="line">1\.只要block引用外部局部变量，block放在堆里面</span><br><span class="line">2\.block使用strong，最好不要使用copy</span><br><span class="line">***</span><br><span class="line"></span><br><span class="line">### 8\.block循环引用</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];</li>
+</ul>
+<p>//block造成循环引用:Block会对里面所有外部变量对象全部强引用</p>
+<p>__weak typeof(self) weakSelf = self;<br>_block = ^{<br>NSLog(@”%@”,weakSelf);</p>
+<p>__strong typeof(weakSelf) strongSelf = weakSelf;</p>
+<p>dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{</p>
+<p>NSLog(@”%@”,strongSelf);<br>});</p>
+<p>};</p>
+<p>_block();<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 9\.block变量传递</span><br><span class="line"></span><br><span class="line">- **总结**</span><br><span class="line">1\.如果是局部变量，block是值传递</span><br><span class="line">2\.如果是静态变量、全局变量、__block修饰的变量，block都是指针传递</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(void)viewDidLoad {<br>[super viewDidLoad];</li>
+</ul>
+<p>//1.static int a = 3;<br>//2.<br>int a = 3;<br>void(^block)() = ^() {<br>NSLog(@”%d”,a);<br>};</p>
+<p>a = 5;</p>
+<p>block();<br>}<br><code>`</code><br><strong>控制台：</strong><br>1.static int a = 3;</p>
+<blockquote>
+<p>2018-08-04 21:21:24.733048+0800 block变量传递[34240:8168797] 5</p>
+</blockquote>
+<p>2.int a = 3;</p>
+<blockquote>
+<p>2018-08-04 21:22:26.695827+0800 block变量传递[34254:8170195] 3</p>
+</blockquote>
+<hr>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">小金渣</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2019/02/18/iOS-多线程/" class="pre-post btn btn-default" title="iOS-多线程">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">iOS-多线程</span>
+        </a>
+    
+    
+        <a href="/2019/01/05/iOS-多图下载/" class="next-post btn btn-default" title="iOS-多图下载">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">iOS-多图下载</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+            appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-block概述"><span class="toc-text">1.block概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-block作用"><span class="toc-text">2.block作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-block声明"><span class="toc-text">3.block声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-block定义"><span class="toc-text">4.block定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-block类型"><span class="toc-text">5.block类型</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
