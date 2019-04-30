@@ -19,18 +19,11 @@
     <meta name="keywords" content="Flag">
 
 
-    <meta name="description" content="打卡第一天_2019.04.29
-
- 英语单词20个
+    <meta name="description" content="打卡第二天_2019.04.30明天回家了，健身回来收拾东西弄得有点晚。但刚立的flag不能忘，还是来打个卡！
 
 
-
- 面试题一：说下线程与进程的区别和练习？
- 面试图二：怎么用 copy 关键字？
-
-答案一：
-
-一个程序至少要有进程,一个进程至少要有...">
+健身房跑步机上走了四十多分钟
+趁着四十分钟，认识了二十个新单词，复习了部分单词...">
 
 
 
@@ -179,7 +172,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/04/29</span>
+            <span class="date-meta">2019/04/30</span>
         </span>
         
     
@@ -189,29 +182,32 @@
     </div>
     
     <div class="post-body post-content">
-        <h3 id="打卡第一天-2019-04-29"><a href="#打卡第一天-2019-04-29" class="headerlink" title="打卡第一天_2019.04.29"></a>打卡第一天_2019.04.29</h3><p><img src="/2019/04/29/打卡第一天-2019-04-29/WechatIMG2.jpeg" alt="WechatIMG2"></p>
+        <h3 id="打卡第二天-2019-04-30"><a href="#打卡第二天-2019-04-30" class="headerlink" title="打卡第二天_2019.04.30"></a>打卡第二天_2019.04.30</h3><p>明天回家了，健身回来收拾东西弄得有点晚。但刚立的flag不能忘，还是来打个卡！</p>
+<hr>
 <ul>
-<li style="list-style: none"><input type="checkbox" checked> 英语单词20个</li>
+<li>健身房跑步机上走了四十多分钟<br><img src="/2019/04/30/打卡第二天-2019-04-30/1_gaitubao_800x800.png" alt="1_gaitubao_800x800"></li>
+<li>趁着四十分钟，认识了二十个新单词，复习了部分单词<br><img src="/2019/04/30/打卡第二天-2019-04-30/2_gaitubao_800x800.png" alt="2_gaitubao_800x800"></li>
+<li>动感单车三十分钟左右，一节课四十五分钟，今天的JK老师节奏太快跟不上<br><img src="/2019/04/30/打卡第二天-2019-04-30/3_gaitubao_800x800.png" alt="3_gaitubao_800x800"></li>
+<li>今天下载了个有道口语App,每次抖音刷到那些口语好的，实名制羡慕<br><img src="/2019/04/30/打卡第二天-2019-04-30/4_gaitubao_800x800.png" alt="4_gaitubao_800x800"></li>
 </ul>
 <hr>
 <ul>
-<li style="list-style: none"><input type="checkbox" checked> 面试题一：说下线程与进程的区别和练习？</li>
-<li style="list-style: none"><input type="checkbox" checked> 面试图二：怎么用 copy 关键字？</li>
+<li style="list-style: none"><input type="checkbox"> 面试题一：简述iOS中的内存管理方式？</li>
+<li style="list-style: none"><input type="checkbox"> 面试题二：block的分类，__block的作用,block循环引用产生的原因及解决办法？</li>
 </ul>
 <p><strong>答案一：</strong></p>
 <ul>
-<li>一个程序至少要有进程,一个进程至少要有一个线程。</li>
-<li>进程：资源分配的最小独立单元,进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动,进程是系统进行资源分配和调度的一个独立单位。</li>
-<li>线程:进程下的一个分支,是进程的实体,是CPU调度和分派的基本单元,它是比进程更小的能独立运行的基本单位,线程自己基本不拥有系统资源,只拥有一点在运行中必不可少的资源(程序计数器、一组寄存器、栈)，但是它可与同属一个进程的其他线程共享进程所拥有的全部资源。</li>
-<li>进程和线程都是由操作系统所体会的程序运行的基本单元，系统利用该基本单元实现系统对应用的并发性。</li>
-<li>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。</li>
-<li>但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</li>
+<li>iOS的内存管理用的是引用计数的方法，分为MRC(手动引用计数)和ARC(自动引用计数)。</li>
+<li>MRC:开发者手动地进行retain和release操作，对每个对象的retainCount进行+1,-1操作，当retainCount为0时，系统会自动释放对象内存。</li>
+<li>ARC:开发者通过声明对象的属性为strong,weak,retain,assign来管理对象的引用计数，被strong和retain修饰的属性变量系统会自动</li>
 </ul>
 <p><strong>答案二：</strong></p>
 <ul>
-<li>copy 的语义是将对象拷贝一份给新的引用，通过新的引用对它的修改不影响原来那个被拷贝的对象。</li>
-<li>NSString、NSArray、NSDictionary 等等经常使用 copy 关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary。</li>
-<li>block 也经常使用 copy 关键字。block 使用 copy 是从 MRC 遗留下来的传统，在 MRC 中，方法内部的 block 是在栈区的，使用 copy 可以把它放到堆区。在 ARC 中写不写都行，对于 block 使用 copy 还是 strong 效果是一样的，但写上 copy 也无伤大雅，还能时刻提醒我们：编译器自动对 block 进行了 copy 操作。</li>
+<li>blcok分为全局blcok，堆block，栈block。</li>
+<li>在 MRC下:只要没有访问外部变量，就是全局block。访问了外部变量，就是栈block。显示地调用[block copy]就是堆block。</li>
+<li>在 ARC下:只要没有访问外部变量，就是全局block。如果访问了外部变量，那么在访问外部变量之前存储在栈区，访问外部变量之后存储在堆区。</li>
+<li>__block的作用:将外部变量的传递形式由值传递变为指针传递，从而可以获取并且修改外部变量的值。同样，外部变量的修改，也会影响block函数的输出。</li>
+<li>block循环引用问题：当一个类的对象持有block，block里面又引用了这个对象，那么就是一个循环引用的关系。可以用strong-weak-dance的方法解除循环引用。</li>
 </ul>
 
     </div>
@@ -230,15 +226,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/2019/04/30/打卡第二天-2019-04-30/" class="pre-post btn btn-default" title="打卡第一天_2019.04.29">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">打卡第一天_2019.04.29</span>
-        </a>
     
-    
-        <a href="/2019/04/29/Flag立起来/" class="next-post btn btn-default" title="Flag立起来">
+        <a href="/2019/04/29/打卡第一天-2019-04-29/" class="next-post btn btn-default" title="打卡第一天_2019.04.29">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Flag立起来</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">打卡第一天_2019.04.29</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -281,7 +272,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打卡第一天-2019-04-29"><span class="toc-text">打卡第一天_2019.04.29</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#打卡第二天-2019-04-30"><span class="toc-text">打卡第二天_2019.04.30</span></a></li></ol>
         
     </div>
 </aside>
