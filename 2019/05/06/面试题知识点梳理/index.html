@@ -287,7 +287,43 @@ MVC模式：Model View Control，把模型、视图、控...">
 <li>深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改A时，A_copy不变</li>
 </ul>
 <hr>
-<h3 id="13-系统对象的-copy-与-mutableCopy-方法"><a href="#13-系统对象的-copy-与-mutableCopy-方法" class="headerlink" title="13.系统对象的 copy 与 mutableCopy 方法"></a>13.系统对象的 copy 与 mutableCopy 方法</h3></li>
+<h3 id="13-这个写法会出什么问题：-property-nonatomic-copy-NSMutableArray-arr"><a href="#13-这个写法会出什么问题：-property-nonatomic-copy-NSMutableArray-arr" class="headerlink" title="13.这个写法会出什么问题：@property  (nonatomic, copy)  NSMutableArray  *arr;"></a>13.这个写法会出什么问题：@property  (nonatomic, copy)  NSMutableArray  *arr;</h3><p><strong>问题：</strong> 添加,删除,修改数组内的元素的时候,程序会因为找不到对应的方法而崩溃。<br><strong>例如：</strong>  -[__NSArrayI removeObjectAtIndex:]: unrecognized selector sent to instance 0x7fcd1bc30460<br>// copy后返回的是不可变对象（即 arr 是 NSArray 类型，NSArray 类型对象不能调用 NSMutableArray 类型对象的方法）<br><strong>原因：</strong> 是因为 copy 就是复制一个不可变 NSArray 的对象，不能对 NSArray 对象进行添加/修改。</p>
+<hr>
+<h4 id="14-如何让自己的类用-copy-修饰符？如何重写带-copy-关键字的-setter？"><a href="#14-如何让自己的类用-copy-修饰符？如何重写带-copy-关键字的-setter？" class="headerlink" title="14.如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？"></a>14.如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</h4><ul>
+<li>若想令自己所写的对象具有拷贝功能，则需实现 NSCopying 协议。如果自定义的对象分为可变版本与不可变版本，那么就要同时实现 NSCopying 与 NSMutableCopying 协议。</li>
+<li>具体步骤</li>
+</ul>
+<ol>
+<li>需声明该类遵从 NSCopying 协议</li>
+<li>实现 NSCopying 协议的方法</li>
+<li>该协议只有一个方法:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> -(id)copyWithZone:(NSZone *)zone; // 注意：使用 copy 修饰符，调用的是copy方法，其实真正需要实现的是 “copyWithZone” 方法。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h4 id="15-synthesize-和-dynamic-分别有什么作用？"><a href="#15-synthesize-和-dynamic-分别有什么作用？" class="headerlink" title="15.@synthesize 和 @dynamic 分别有什么作用？"></a>15.@synthesize 和 @dynamic 分别有什么作用？</h4><ul>
+<li>@property有两个对应的词，一个是@synthesize（合成实例变量），一个是@dynamic</li>
+<li>如果@synthesize和@dynamic都没有写，那么默认的就是 @synthesize var = _var; 在类的实现代码里通过 @synthesize 语法可以来指定实例变量的名字。(@synthesize var = _newVar;) </li>
+<li>@synthesize 的语义是如果你没有手动实现setter方法和getter方法，那么编译器会自动为你加上这两个方法</li>
+<li>@dynamic 告诉编译器，属性的setter与getter方法由用户自己实现，不自动生成（如，@dynamic var）</li>
+</ul>
+<hr>
+<h4 id="16-常见的-Objective-C-的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int"><a href="#16-常见的-Objective-C-的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int" class="headerlink" title="16.常见的 Objective-C 的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int"></a>16.常见的 Objective-C 的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int</h4><ul>
+<li>Objective-C的数据类型有NSString，NSNumber，NSArray，NSMutableArray，NSData等等，这些都是class，创建后便是对象</li>
+<li>C语言的基本数据类型int，只是一定字节的内存空间，用于存放数值</li>
+<li>NSInteger是基本数据类型，并不是NSNumber的子类，当然也不是NSObject的子类。NSInteger是基本数据类型Int或者Long的别名(NSInteger的定义typedef long NSInteger)，它的区别在于，NSInteger会根据系统是32位还是64位来决定是本身是int还是long。</li>
+</ul>
+<hr>
+<h3 id="17-id-声明的对象有什么特性？"><a href="#17-id-声明的对象有什么特性？" class="headerlink" title="17.id 声明的对象有什么特性？"></a>17.id 声明的对象有什么特性？</h3><ul>
+<li>id 声明的对象具有运行时的特性，即可以指向任意类型的Objcetive-C的对象。</li>
+</ul>
+<hr>
+<h3 id="18-Objective-C-如何对内存管理的，说说你的看法和解决方法？"><a href="#18-Objective-C-如何对内存管理的，说说你的看法和解决方法？" class="headerlink" title="18.Objective-C 如何对内存管理的，说说你的看法和解决方法？"></a>18.Objective-C 如何对内存管理的，说说你的看法和解决方法？</h3><p><strong>答：</strong> Objective-C的内存管理主要有三种方式ARC(自动内存计数)、手动内存计数、内存池。</p>
+<ul>
+<li>自动内存计数ARC：由Xcode自动在App编译阶段，在代码中添加内存管理代码</li>
+<li>手动内存计数MRC：遵循内存谁申请、谁释放；谁添加，谁释放的原则</li>
+<li>内存释放池Release Pool：把需要释放的内存统一放在一个池子中，当池子被抽干后(drain)，池子中所有的内存空间也被自动释放掉。内存池的释放操作分为自动和手动。自动释放受runloop机制影响</li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -352,7 +388,7 @@ MVC模式：Model View Control，把模型、视图、控...">
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-设计模式是什么？-你知道哪些设计模式，并简要叙述？"><span class="toc-text">1.设计模式是什么？ 你知道哪些设计模式，并简要叙述？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-MVC-和-MVVM-的区别"><span class="toc-text">2.MVC 和 MVVM 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-import跟-include-有什么区别，-class呢，-import-lt-gt-跟-import””有什么区别？"><span class="toc-text">3.#import跟 #include 有什么区别，@class呢，#import&lt;&gt; 跟 #import””有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-frame-和-bounds-有什么不同？"><span class="toc-text">4.frame 和 bounds 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？"><span class="toc-text">5.Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-property-的本质是什么？ivar、getter、setter-是如何生成并添加到这个类中的"><span class="toc-text">6.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-property中有哪些属性关键字？-property-后面可以有哪些修饰符？"><span class="toc-text">7.@property中有哪些属性关键字？/ @property 后面可以有哪些修饰符？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-属性关键字-readwrite，readonly，assign，retain，copy，nonatomic-各是什么作用，在那种情况下用？"><span class="toc-text">8.属性关键字 readwrite，readonly，assign，retain，copy，nonatomic 各是什么作用，在那种情况下用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-什么情况使用-weak-关键字，相比-assign-有什么不同？"><span class="toc-text">9.什么情况使用 weak 关键字，相比 assign 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-怎么用-copy-关键字？"><span class="toc-text">10.怎么用 copy 关键字？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？"><span class="toc-text">11.用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-浅拷贝和深拷贝的区别？"><span class="toc-text">12.浅拷贝和深拷贝的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-系统对象的-copy-与-mutableCopy-方法"><span class="toc-text">13.系统对象的 copy 与 mutableCopy 方法</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-设计模式是什么？-你知道哪些设计模式，并简要叙述？"><span class="toc-text">1.设计模式是什么？ 你知道哪些设计模式，并简要叙述？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-MVC-和-MVVM-的区别"><span class="toc-text">2.MVC 和 MVVM 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-import跟-include-有什么区别，-class呢，-import-lt-gt-跟-import””有什么区别？"><span class="toc-text">3.#import跟 #include 有什么区别，@class呢，#import&lt;&gt; 跟 #import””有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-frame-和-bounds-有什么不同？"><span class="toc-text">4.frame 和 bounds 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？"><span class="toc-text">5.Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-property-的本质是什么？ivar、getter、setter-是如何生成并添加到这个类中的"><span class="toc-text">6.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-property中有哪些属性关键字？-property-后面可以有哪些修饰符？"><span class="toc-text">7.@property中有哪些属性关键字？/ @property 后面可以有哪些修饰符？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-属性关键字-readwrite，readonly，assign，retain，copy，nonatomic-各是什么作用，在那种情况下用？"><span class="toc-text">8.属性关键字 readwrite，readonly，assign，retain，copy，nonatomic 各是什么作用，在那种情况下用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-什么情况使用-weak-关键字，相比-assign-有什么不同？"><span class="toc-text">9.什么情况使用 weak 关键字，相比 assign 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-怎么用-copy-关键字？"><span class="toc-text">10.怎么用 copy 关键字？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？"><span class="toc-text">11.用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-浅拷贝和深拷贝的区别？"><span class="toc-text">12.浅拷贝和深拷贝的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-这个写法会出什么问题：-property-nonatomic-copy-NSMutableArray-arr"><span class="toc-text">13.这个写法会出什么问题：@property  (nonatomic, copy)  NSMutableArray  *arr;</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-如何让自己的类用-copy-修饰符？如何重写带-copy-关键字的-setter？"><span class="toc-text">14.如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-synthesize-和-dynamic-分别有什么作用？"><span class="toc-text">15.@synthesize 和 @dynamic 分别有什么作用？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-常见的-Objective-C-的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int"><span class="toc-text">16.常见的 Objective-C 的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-id-声明的对象有什么特性？"><span class="toc-text">17.id 声明的对象有什么特性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-Objective-C-如何对内存管理的，说说你的看法和解决方法？"><span class="toc-text">18.Objective-C 如何对内存管理的，说说你的看法和解决方法？</span></a></li></ol></li></ol>
         
     </div>
 </aside>
