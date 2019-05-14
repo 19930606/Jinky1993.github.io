@@ -325,6 +325,127 @@ MVC模式：Model View Control，把模型、视图、控...">
 <li>手动内存计数MRC：遵循内存谁申请、谁释放；谁添加，谁释放的原则</li>
 <li>内存释放池Release Pool：把需要释放的内存统一放在一个池子中，当池子被抽干后(drain)，池子中所有的内存空间也被自动释放掉。内存池的释放操作分为自动和手动。自动释放受runloop机制影响</li>
 </ul>
+<hr>
+<h3 id="19-Objective-C-中创建线程的方法是什么？如果在主线程中执行代码，方法是什么？如果想延时执行代码、方法又是什么？"><a href="#19-Objective-C-中创建线程的方法是什么？如果在主线程中执行代码，方法是什么？如果想延时执行代码、方法又是什么？" class="headerlink" title="19.Objective-C 中创建线程的方法是什么？如果在主线程中执行代码，方法是什么？如果想延时执行代码、方法又是什么？"></a>19.Objective-C 中创建线程的方法是什么？如果在主线程中执行代码，方法是什么？如果想延时执行代码、方法又是什么？</h3><p><strong>线程创建有三种方法：</strong></p>
+<ul>
+<li>使用NSThread创建、使用GCD的dispatch、使用子类化的NSOperation,然后将其加入NSOperationQueue</li>
+<li>在主线程执行代码，方法是performSelectorOnMainThread</li>
+<li>延时执行代码可以用performSelector:onThread:withObject:waitUntilDone:</li>
+</ul>
+<hr>
+<h3 id="20-Category（类别）、-Extension（扩展）和继承的区别？"><a href="#20-Category（类别）、-Extension（扩展）和继承的区别？" class="headerlink" title="20.Category（类别）、 Extension（扩展）和继承的区别？"></a>20.Category（类别）、 Extension（扩展）和继承的区别？</h3><p><strong>区别：</strong></p>
+<ul>
+<li><ol>
+<li>分类有名字，类扩展没有分类名字，是一种特殊的分类</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>分类只能扩展方法（属性仅仅是声明，并没真正实现），类扩展可以扩展属性、成员变量和方法</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>继承可以增加，修改或者删除方法，并且可以增加属性</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h3 id="21-我们说的OC是动态运行时语言是什么意思？"><a href="#21-我们说的OC是动态运行时语言是什么意思？" class="headerlink" title="21.我们说的OC是动态运行时语言是什么意思？"></a>21.我们说的OC是动态运行时语言是什么意思？</h3><p><strong>答：</strong> 主要是将数据类型的确定由编译时，推迟到了运行时。简单来说, 运行时机制使我们直到运行时才去决定一个对象的类别,以及调用该类别对象指定方法</p>
+<hr>
+<h3 id="22-为什么我们常见的delegate属性都用是week而不是retain-strong？"><a href="#22-为什么我们常见的delegate属性都用是week而不是retain-strong？" class="headerlink" title="22.为什么我们常见的delegate属性都用是week而不是retain/strong？"></a>22.为什么我们常见的delegate属性都用是week而不是retain/strong？</h3><p><strong>答：</strong> 是为了防止delegate两端产生不必要的循环引用。 @property (nonatomic, weak) id delegate;</p>
+<hr>
+<h3 id="23-什么时候用delete，什么时候用Notification？"><a href="#23-什么时候用delete，什么时候用Notification？" class="headerlink" title="23.什么时候用delete，什么时候用Notification？"></a>23.什么时候用delete，什么时候用Notification？</h3><ul>
+<li>Delegate(委托模式)：1对1的反向消息通知功能</li>
+<li>Notification(通知模式)：只想要把消息发送出去，告知某些状态的变化。但是并不关心谁想要知道这个</li>
+</ul>
+<hr>
+<h3 id="24-什么是-KVO-和-KVC？"><a href="#24-什么是-KVO-和-KVC？" class="headerlink" title="24.什么是 KVO 和 KVC？"></a>24.什么是 KVO 和 KVC？</h3><p><strong>KVC</strong>(Key-Value-Coding): 键值编码 是一种通过字符串间接访问对象的方式（即给属性赋值）</p>
+<p><strong>KVO</strong>(key-Value-Observing)：键值观察机制 他提供了观察某一属性变化的方法，极大的简化了代码；KVO只能被KVC触发，包括使用setValue:forKey:方法和点语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 通过下方方法为属性添加KVO观察</span><br><span class="line">- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(nullable void *)context;</span><br><span class="line"></span><br><span class="line">// 当被观察的属性发送变化时，会自动触发下方方法</span><br><span class="line">- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意:</strong> KVC 和 KVO 的 keyPath 可以是属性、实例变量、成员变量。</p>
+<hr>
+<h3 id="25-KVC的底层实现？"><a href="#25-KVC的底层实现？" class="headerlink" title="25.KVC的底层实现？"></a>25.KVC的底层实现？</h3><p><strong>当一个对象调用setValue方法时，方法内部会做以下操作：</strong> </p>
+<ul>
+<li>1.检查是否存在相应的key的set方法，如果存在，就调用set方法。</li>
+<li>2.如果set方法不存在，就会查找与key相同名称并且带下划线的成员变量，如果有，则直接给成员变量属性赋值</li>
+<li>3.如果没有找到_key，就会查找相同名称的属性key，如果有就直接赋值</li>
+<li>4.如果还没有找到，则调用valueForUndefinedKey:和setValue:forUndefinedKey:方法</li>
+</ul>
+<p><strong>这些方法的默认实现都是抛出异常，我们可以根据需要重写它们</strong></p>
+<hr>
+<h3 id="26-KVO的底层实现？"><a href="#26-KVO的底层实现？" class="headerlink" title="26.KVO的底层实现？"></a>26.KVO的底层实现？</h3><ul>
+<li>KVO基于runtime机制实现</li>
+<li><a href="https://www.jianshu.com/p/829864680648" target="_blank" rel="noopener">探究KVO的底层实现原理</a></li>
+</ul>
+<hr>
+<h3 id="27-ViewController生命周期"><a href="#27-ViewController生命周期" class="headerlink" title="27.ViewController生命周期"></a>27.ViewController生命周期</h3><p><strong>按照执行顺序排列：</strong></p>
+<ul>
+<li>initWithCoder：通过nib文件初始化时触发</li>
+<li>awakeFromNib：nib文件被加载的时候，会发生一个awakeFromNib的消息到nib文件中的每个对象</li>
+<li>loadView：开始加载视图控制器自带的view</li>
+<li>viewDidLoad：视图控制器的view被加载完成</li>
+<li>viewWillAppear：视图控制器的view将要显示在window上</li>
+<li>updateViewConstraints：视图控制器的view开始更新AutoLayout约束</li>
+<li>viewWillLayoutSubviews：视图控制器的view将要更新内容视图的位置</li>
+<li>viewDidLayoutSubviews：视图控制器的view已经更新视图的位置</li>
+<li>viewDidAppear：视图控制器的view已经展示到window上</li>
+<li>viewWillDisappear：视图控制器的view将要从window上消失</li>
+<li>viewDidDisappear：视图控制器的view已经从window上消失</li>
+</ul>
+<hr>
+<h3 id="28-方法和选择器有何不同？"><a href="#28-方法和选择器有何不同？" class="headerlink" title="28.方法和选择器有何不同？"></a>28.方法和选择器有何不同？</h3><ul>
+<li>selector是一个方法的名字，方法是一个组合体，包含了名字和实现</li>
+</ul>
+<hr>
+<h3 id="29-你是否接触过OC中的反射机制？简单聊一下概念和使用"><a href="#29-你是否接触过OC中的反射机制？简单聊一下概念和使用" class="headerlink" title="29.你是否接触过OC中的反射机制？简单聊一下概念和使用"></a>29.你是否接触过OC中的反射机制？简单聊一下概念和使用</h3><p><strong>class反射</strong></p>
+<ul>
+<li>通过类名的字符串形式实例化对象</li>
+<li>Class class = NSClassFromString(@”student”);</li>
+<li>Student *stu = [[class alloc] init];</li>
+<li>将类名变为字符串</li>
+<li>Class class =[Student class];</li>
+<li>NSString *className = NSStringFromClass(class);</li>
+</ul>
+<p><strong>SEL的反射</strong></p>
+<ul>
+<li>通过方法的字符串形式实例化方法</li>
+<li>SEL selector = NSSelectorFromString(@”setName”);</li>
+<li>[stu performSelector:selector withObject:@”Jin”];</li>
+<li>将方法变成字符串</li>
+<li>NSStringFromSelector(@selector*(setName:));</li>
+</ul>
+<hr>
+<h3 id="30-调用方法的两种方式？"><a href="#30-调用方法的两种方式？" class="headerlink" title="30.调用方法的两种方式？"></a>30.调用方法的两种方式？</h3><ul>
+<li>直接通过方法名来调用。[person show];</li>
+<li>间接的通过SEL数据来调用 。SEL aaa = @selector(show); [person performSelector:aaa];</li>
+</ul>
+<hr>
+<h3 id="31-如何对iOS设备进行性能测试？"><a href="#31-如何对iOS设备进行性能测试？" class="headerlink" title="31.如何对iOS设备进行性能测试？"></a>31.如何对iOS设备进行性能测试？</h3><p><strong>答：</strong> Profile-&gt; Instruments -&gt;Time Profiler</p>
+<hr>
+<h3 id="32-开发项目时你是怎么检查内存泄露？"><a href="#32-开发项目时你是怎么检查内存泄露？" class="headerlink" title="32.开发项目时你是怎么检查内存泄露？"></a>32.开发项目时你是怎么检查内存泄露？</h3><ul>
+<li>静态分析 analyze</li>
+<li>instruments工具里面有个leak可以动态分析</li>
+</ul>
+<p>**</p>
+<h3 id="32-什么是懒加载？"><a href="#32-什么是懒加载？" class="headerlink" title="32.什么是懒加载？"></a>32.什么是懒加载？</h3><p><strong>答：</strong> 懒加载就是只在用到的时候才去初始化。也可以理解成延时加载。<br><strong>例：</strong> 最好也最简单的一个例子就是tableView中图片的加载显示了, 一个延时加载, 避免内存过高,一个异步加载,避免线程堵塞提高用户体验。</p>
+<hr>
+<h3 id="33-类变量的-public，-protected，-private，-package-声明各有什么含义？"><a href="#33-类变量的-public，-protected，-private，-package-声明各有什么含义？" class="headerlink" title="33.类变量的 @public，@protected，@private，@package 声明各有什么含义？"></a>33.类变量的 @public，@protected，@private，@package 声明各有什么含义？</h3><ul>
+<li><strong>@public</strong>任何地方都能访问</li>
+<li><strong>@protected</strong>该类和子类中访问,是默认的</li>
+<li><strong>@private</strong>只能在本类中访问</li>
+<li><strong>@package</strong>本包内使用,跨包不可以</li>
+</ul>
+<hr>
+<h3 id="34-什么是谓词？"><a href="#34-什么是谓词？" class="headerlink" title="34.什么是谓词？"></a>34.什么是谓词？</h3><p><strong>谓词就是通过NSPredicate给定的逻辑条件作为约束条件,完成对数据的筛选</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//定义谓词对象,谓词对象中包含了过滤条件(过滤条件比较多)</span><br><span class="line">NSPredicate *predicate = [NSPredicate predicateWithFormat:@&quot;age&lt;%d&quot;,30];</span><br><span class="line"></span><br><span class="line">//使用谓词条件过滤数组中的元素,过滤之后返回查询的结果</span><br><span class="line">NSArray *array = [persons filteredArrayUsingPredicate:predicate];</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="35-isa指针问题"><a href="#35-isa指针问题" class="headerlink" title="35.isa指针问题"></a>35.isa指针问题</h3><ul>
+<li>isa：是一个Class 类型的指针. 每个实例对象有个isa的指针,他指向对象的类,而Class里也有个isa的指针, 指向meteClass(元类)。元类保存了类方法的列表。当类方法被调 用时,先会从本身查找类方法的实现,如果没有,元类会向他父类查找该方法。同时注意的是:元类(meteClass)也是类,它也是对象。元类也有isa指针,它的isa指针最终指向的是一个根元类(root meteClass)。根元类的isa指针指向本身,这样形成了一个封闭的内循环。</li>
+</ul>
+<hr>
+<h3 id="36-如何访问并修改一个类的私有属性？"><a href="#36-如何访问并修改一个类的私有属性？" class="headerlink" title="36.如何访问并修改一个类的私有属性？"></a>36.如何访问并修改一个类的私有属性？</h3><ul>
+<li>一种是通过KVC获取</li>
+<li>通过runtime访问并修改私有属性</li>
+</ul>
+<hr>
+<h3 id="37-一个objc对象的isa的指针指向什么？有什么作用？"><a href="#37-一个objc对象的isa的指针指向什么？有什么作用？" class="headerlink" title="37.一个objc对象的isa的指针指向什么？有什么作用？"></a>37.一个objc对象的isa的指针指向什么？有什么作用？</h3><p><strong>答：</strong> 指向他的类对象,从而可以找到对象上的方法</p>
 
     </div>
     
@@ -388,7 +509,7 @@ MVC模式：Model View Control，把模型、视图、控...">
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-设计模式是什么？-你知道哪些设计模式，并简要叙述？"><span class="toc-text">1.设计模式是什么？ 你知道哪些设计模式，并简要叙述？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-MVC-和-MVVM-的区别"><span class="toc-text">2.MVC 和 MVVM 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-import跟-include-有什么区别，-class呢，-import-lt-gt-跟-import””有什么区别？"><span class="toc-text">3.#import跟 #include 有什么区别，@class呢，#import&lt;&gt; 跟 #import””有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-frame-和-bounds-有什么不同？"><span class="toc-text">4.frame 和 bounds 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？"><span class="toc-text">5.Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-property-的本质是什么？ivar、getter、setter-是如何生成并添加到这个类中的"><span class="toc-text">6.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-property中有哪些属性关键字？-property-后面可以有哪些修饰符？"><span class="toc-text">7.@property中有哪些属性关键字？/ @property 后面可以有哪些修饰符？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-属性关键字-readwrite，readonly，assign，retain，copy，nonatomic-各是什么作用，在那种情况下用？"><span class="toc-text">8.属性关键字 readwrite，readonly，assign，retain，copy，nonatomic 各是什么作用，在那种情况下用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-什么情况使用-weak-关键字，相比-assign-有什么不同？"><span class="toc-text">9.什么情况使用 weak 关键字，相比 assign 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-怎么用-copy-关键字？"><span class="toc-text">10.怎么用 copy 关键字？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？"><span class="toc-text">11.用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-浅拷贝和深拷贝的区别？"><span class="toc-text">12.浅拷贝和深拷贝的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-这个写法会出什么问题：-property-nonatomic-copy-NSMutableArray-arr"><span class="toc-text">13.这个写法会出什么问题：@property  (nonatomic, copy)  NSMutableArray  *arr;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-如何让自己的类用-copy-修饰符？如何重写带-copy-关键字的-setter？"><span class="toc-text">14.如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-synthesize-和-dynamic-分别有什么作用？"><span class="toc-text">15.@synthesize 和 @dynamic 分别有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-常见的-Objective-C-的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int"><span class="toc-text">16.常见的 Objective-C 的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-id-声明的对象有什么特性？"><span class="toc-text">17.id 声明的对象有什么特性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-Objective-C-如何对内存管理的，说说你的看法和解决方法？"><span class="toc-text">18.Objective-C 如何对内存管理的，说说你的看法和解决方法？</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识"><span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-设计模式是什么？-你知道哪些设计模式，并简要叙述？"><span class="toc-text">1.设计模式是什么？ 你知道哪些设计模式，并简要叙述？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-MVC-和-MVVM-的区别"><span class="toc-text">2.MVC 和 MVVM 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-import跟-include-有什么区别，-class呢，-import-lt-gt-跟-import””有什么区别？"><span class="toc-text">3.#import跟 #include 有什么区别，@class呢，#import&lt;&gt; 跟 #import””有什么区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-frame-和-bounds-有什么不同？"><span class="toc-text">4.frame 和 bounds 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？"><span class="toc-text">5.Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方法用继承好还是分类好？为什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-property-的本质是什么？ivar、getter、setter-是如何生成并添加到这个类中的"><span class="toc-text">6.@property 的本质是什么？ivar、getter、setter 是如何生成并添加到这个类中的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-property中有哪些属性关键字？-property-后面可以有哪些修饰符？"><span class="toc-text">7.@property中有哪些属性关键字？/ @property 后面可以有哪些修饰符？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-属性关键字-readwrite，readonly，assign，retain，copy，nonatomic-各是什么作用，在那种情况下用？"><span class="toc-text">8.属性关键字 readwrite，readonly，assign，retain，copy，nonatomic 各是什么作用，在那种情况下用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-什么情况使用-weak-关键字，相比-assign-有什么不同？"><span class="toc-text">9.什么情况使用 weak 关键字，相比 assign 有什么不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-怎么用-copy-关键字？"><span class="toc-text">10.怎么用 copy 关键字？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？"><span class="toc-text">11.用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-浅拷贝和深拷贝的区别？"><span class="toc-text">12.浅拷贝和深拷贝的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-这个写法会出什么问题：-property-nonatomic-copy-NSMutableArray-arr"><span class="toc-text">13.这个写法会出什么问题：@property  (nonatomic, copy)  NSMutableArray  *arr;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#14-如何让自己的类用-copy-修饰符？如何重写带-copy-关键字的-setter？"><span class="toc-text">14.如何让自己的类用 copy 修饰符？如何重写带 copy 关键字的 setter？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#15-synthesize-和-dynamic-分别有什么作用？"><span class="toc-text">15.@synthesize 和 @dynamic 分别有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#16-常见的-Objective-C-的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int"><span class="toc-text">16.常见的 Objective-C 的数据类型有那些，和C的基本数据类型有什么区别？如：NSInteger和int</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-id-声明的对象有什么特性？"><span class="toc-text">17.id 声明的对象有什么特性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#18-Objective-C-如何对内存管理的，说说你的看法和解决方法？"><span class="toc-text">18.Objective-C 如何对内存管理的，说说你的看法和解决方法？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#19-Objective-C-中创建线程的方法是什么？如果在主线程中执行代码，方法是什么？如果想延时执行代码、方法又是什么？"><span class="toc-text">19.Objective-C 中创建线程的方法是什么？如果在主线程中执行代码，方法是什么？如果想延时执行代码、方法又是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#20-Category（类别）、-Extension（扩展）和继承的区别？"><span class="toc-text">20.Category（类别）、 Extension（扩展）和继承的区别？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#21-我们说的OC是动态运行时语言是什么意思？"><span class="toc-text">21.我们说的OC是动态运行时语言是什么意思？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#22-为什么我们常见的delegate属性都用是week而不是retain-strong？"><span class="toc-text">22.为什么我们常见的delegate属性都用是week而不是retain/strong？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#23-什么时候用delete，什么时候用Notification？"><span class="toc-text">23.什么时候用delete，什么时候用Notification？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#24-什么是-KVO-和-KVC？"><span class="toc-text">24.什么是 KVO 和 KVC？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#25-KVC的底层实现？"><span class="toc-text">25.KVC的底层实现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#26-KVO的底层实现？"><span class="toc-text">26.KVO的底层实现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#27-ViewController生命周期"><span class="toc-text">27.ViewController生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#28-方法和选择器有何不同？"><span class="toc-text">28.方法和选择器有何不同？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#29-你是否接触过OC中的反射机制？简单聊一下概念和使用"><span class="toc-text">29.你是否接触过OC中的反射机制？简单聊一下概念和使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#30-调用方法的两种方式？"><span class="toc-text">30.调用方法的两种方式？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#31-如何对iOS设备进行性能测试？"><span class="toc-text">31.如何对iOS设备进行性能测试？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-开发项目时你是怎么检查内存泄露？"><span class="toc-text">32.开发项目时你是怎么检查内存泄露？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#32-什么是懒加载？"><span class="toc-text">32.什么是懒加载？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#33-类变量的-public，-protected，-private，-package-声明各有什么含义？"><span class="toc-text">33.类变量的 @public，@protected，@private，@package 声明各有什么含义？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#34-什么是谓词？"><span class="toc-text">34.什么是谓词？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#35-isa指针问题"><span class="toc-text">35.isa指针问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#36-如何访问并修改一个类的私有属性？"><span class="toc-text">36.如何访问并修改一个类的私有属性？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#37-一个objc对象的isa的指针指向什么？有什么作用？"><span class="toc-text">37.一个objc对象的isa的指针指向什么？有什么作用？</span></a></li></ol></li></ol>
         
     </div>
 </aside>
