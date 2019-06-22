@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="小金渣blog">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://yoursite.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="Swift">
+
+
+    <meta name="description" content="序言UITableView 是开发中常用的控件，掌握 UITableView 的相关知识点至关重要，本文针对 UITableView 在Swift语法中的学习总结。仅个人学习笔记！
+UITabl...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>Swift_01_UITableView | 小金渣blog</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="小金渣blog" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="小金渣">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 拒绝三次握手，有事说事。 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://yoursite.com">小金渣blog</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Objective-C/"><i class="fa "></i>Objective-C</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/Swift/"><i class="fa "></i>Swift</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/进阶/"><i class="fa "></i>进阶</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Swift_01_UITableView">
+            
+	            Swift_01_UITableView
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/Swift/">Swift</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Swift/">Swift</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/06/22</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><strong>序言</strong><br><em>UITableView 是开发中常用的控件，掌握 UITableView 的相关知识点至关重要，本文针对 UITableView 在Swift语法中的学习总结。<strong>仅个人学习笔记</strong>！</em></p>
+<h3 id="UITableViewCell"><a href="#UITableViewCell" class="headerlink" title="UITableViewCell"></a>UITableViewCell</h3><ul>
+<li>UITableView由UITableViewCell组成，UITabelViewCell负责显示数据</li>
+<li>UITableViewCell对象的数量不受限制，仅由设备内存决定</li>
+<li>UITableViewCell类定义了单元格在UITableView中的属性和行为</li>
+</ul>
+<p><em>系统预定义的cell提供了4种样式：</em></p>
+<ul>
+<li>.default：<br><img src="/2019/06/22/Swift-01-UITableView/default.png" alt></li>
+<li>.value1：<br><img src="/2019/06/22/Swift-01-UITableView/value1.png" alt></li>
+<li>.value2：<br><img src="/2019/06/22/Swift-01-UITableView/value2.png" alt></li>
+<li>.subtitle：<br><img src="/2019/06/22/Swift-01-UITableView/subtitle_1.png" alt></li>
+</ul>
+<h2 id="UITableView"><a href="#UITableView" class="headerlink" title="UITableView"></a>UITableView</h2><h4 id="1-样式"><a href="#1-样式" class="headerlink" title="1.样式"></a>1.样式</h4><ul>
+<li>.plain：展示单组数据，没有分组</li>
+<li>.grouped：展示多组数据，有分组，每一组可以有不同的行数</li>
+</ul>
+<h4 id="2-创建TableView"><a href="#2-创建TableView" class="headerlink" title="2.创建TableView"></a>2.创建TableView</h4><p>创建UITableView，首先是实例化一个UITableView对象，还要涉及到它的代理<strong>UITabelViewDataSource</strong>、<strong>UITableViewDelegate</strong>在UITableViewDataSource代理方法中定义UITableViewCell的样式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">///遵守协议</span><br><span class="line">class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource &#123;</span><br><span class="line"></span><br><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">super.viewDidLoad()</span><br><span class="line"></span><br><span class="line">let tableView = UITableView(frame: view.bounds, style: .grouped)</span><br><span class="line">//设置数据源对象、代理</span><br><span class="line">tableView.delegate = self</span><br><span class="line">tableView.dataSource = self</span><br><span class="line"></span><br><span class="line">view.addSubview(tableView)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//MARK:UITableViewDataSource</span><br><span class="line"></span><br><span class="line">///cell的个数</span><br><span class="line">func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int &#123;</span><br><span class="line">return 20</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">///cell的内容</span><br><span class="line">func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell &#123;</span><br><span class="line"></span><br><span class="line">let cellID = &quot;testCellID&quot;</span><br><span class="line">var cell = tableView.dequeueReusableCell(withIdentifier: cellID)</span><br><span class="line">if cell == nil &#123;</span><br><span class="line">cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellID)</span><br><span class="line">&#125;</span><br><span class="line">cell?.textLabel?.text = &quot;textLabel&quot;</span><br><span class="line">cell?.detailTextLabel?.text = &quot;detailTextLabel&quot;</span><br><span class="line">cell?.imageView?.image = UIImage(named: &quot;image&quot;)</span><br><span class="line"></span><br><span class="line">return cell!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//MARK:UITableViewDelegate</span><br><span class="line"></span><br><span class="line">///设置行高</span><br><span class="line">func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -&gt; CGFloat &#123;</span><br><span class="line"></span><br><span class="line">return 60</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">///选中cell执行此方法</span><br><span class="line">func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) &#123;</span><br><span class="line"></span><br><span class="line">print(indexPath.row)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-UITableViewDataSource数据源方法"><a href="#3-UITableViewDataSource数据源方法" class="headerlink" title="3. UITableViewDataSource数据源方法"></a>3. UITableViewDataSource数据源方法</h4><p>1.设置某个section中cell的数量,<strong>必须实现</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int</span><br></pre></td></tr></table></figure></p>
+<p>2.初始化和复用指定索引位置的UITableViewCell，设置cell内容。<strong>必须实现</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell</span><br></pre></td></tr></table></figure></p>
+<p>3.设置表格中section的个数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func numberOfSections(in tableView: UITableView) -&gt; Int</span><br></pre></td></tr></table></figure></p>
+<p>4.设置section的头部标题文字，如果不设置或代理返回值为nil，不显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -&gt; String?</span><br></pre></td></tr></table></figure></p>
+<p>5.设置section脚部标题文字，如果不设置或代理返回值为nil，不显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -&gt; String?</span><br></pre></td></tr></table></figure></p>
+<p>6.设置表格中指定索引位置的cell是否可编辑，可编辑的cell会显示插入和删除的图标。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -&gt; Bool</span><br></pre></td></tr></table></figure></p>
+<p>7.当完成插入或删除操作时会调用此方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)</span><br></pre></td></tr></table></figure></p>
+<p>8.设置指定索引位置的cell是否可以通过拖动的方式，改变它的位置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -&gt; Bool</span><br></pre></td></tr></table></figure></p>
+<p>9.当cell从一个位置拖动到另一个位置时调用此方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath)</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-UITableViewDelegate代理方法"><a href="#4-UITableViewDelegate代理方法" class="headerlink" title="4.UITableViewDelegate代理方法"></a>4.UITableViewDelegate代理方法</h4><p>1.设置单元格高度，每当表格需要显示时，都会调用此方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -&gt; CGFloat</span><br></pre></td></tr></table></figure></p>
+<p>2.设置某一索引下的章节头部的高度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -&gt; CGFloat</span><br></pre></td></tr></table></figure></p>
+<p>3.设置某一索引下的章节尾部的高度<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -&gt; CGFloat</span><br></pre></td></tr></table></figure></p>
+<p>4.当指定索引位置上的单元格即将显示时，调用此方法。此方法是委托对象有机会在单元格显示之前重写其状态属性，如背景颜色等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)</span><br></pre></td></tr></table></figure></p>
+<p>5.当用户点击选择指定索引位置的单元格时，调用此方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)</span><br></pre></td></tr></table></figure></p>
+<p>6.当用户点击一个已经被选中的单元格时，调用此方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath)</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-UITableView重用机制"><a href="#5-UITableView重用机制" class="headerlink" title="5.UITableView重用机制"></a>5.UITableView重用机制</h4><p>一个UITableView可能需要显示多条数据，但屏幕有限。UITableView采用重用机制，系统只创建屏幕可见的UITableViewCell对象，当滑动超出屏幕，系统进行回收重用。</p>
+<p><strong>dequeueReusableCell</strong>方法的作用是从单元格对象池中获取指定类型并可复用的单元格对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let cellID = &quot;testCellID&quot;</span><br><span class="line">var cell = tableView.dequeueReusableCell(withIdentifier: cellID)</span><br></pre></td></tr></table></figure></p>
+<p>如果从对象池中没有获得可复用的单元格，就调用实例化方法实例一个某一类型的、可复用的单元格<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if cell == nil &#123;</span><br><span class="line">cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellID)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>style参数: 枚举常量，用于表示单元格的样式</li>
+<li>reuseIdentifier: 作为一个字符串类型的参数，它用来标识具有相同类型的、可复用的单元格。对于相同类型的单元格，需要使用相同的reuseIdentifier参数。</li>
+</ul>
+<h4 id="6-自定义UITableViewCell"><a href="#6-自定义UITableViewCell" class="headerlink" title="6.自定义UITableViewCell"></a>6.自定义UITableViewCell</h4><p>对于相对复杂一些的显示内容，我们会创建一个UITableViewCell的类文件,例如以下创建TYNormalTableViewCell文件继承自UITableViewCell</p>
+<p><strong>TYNormalTableViewCell.swift</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class TYNormalTableViewCell: UITableViewCell &#123;</span><br><span class="line"></span><br><span class="line">var titleLabel:UILabel!     ///标题</span><br><span class="line">var sourceLabel:UILabel!    ///内容</span><br><span class="line">var commentLabel:UILabel!   ///评论</span><br><span class="line">var timeLabel:UILabel!      ///时间</span><br><span class="line"></span><br><span class="line">override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) &#123;</span><br><span class="line">super.init(style: style, reuseIdentifier: reuseIdentifier)</span><br><span class="line"></span><br><span class="line">///标题</span><br><span class="line">titleLabel = UILabel(frame: CGRect(x: 20, y: 15, width: 300, height: 50))</span><br><span class="line">//        titleLabel.backgroundColor = UIColor.red</span><br><span class="line">titleLabel.font = UIFont.systemFont(ofSize: 16)</span><br><span class="line">titleLabel.textColor = UIColor.black</span><br><span class="line"></span><br><span class="line">///内容</span><br><span class="line">sourceLabel = UILabel(frame: CGRect(x: 20, y: 80, width: 50, height: 20))</span><br><span class="line">//        sourceLabel.backgroundColor = UIColor.orange</span><br><span class="line">sourceLabel.font = UIFont.systemFont(ofSize: 12)</span><br><span class="line">sourceLabel.textColor = UIColor.gray</span><br><span class="line"></span><br><span class="line">///评论</span><br><span class="line">commentLabel = UILabel(frame: CGRect(x: 100, y: 80, width: 50, height: 20))</span><br><span class="line">//        commentLabel.backgroundColor = UIColor.yellow</span><br><span class="line">commentLabel.font = UIFont.systemFont(ofSize: 12)</span><br><span class="line">commentLabel.textColor = UIColor.gray</span><br><span class="line"></span><br><span class="line">///时间</span><br><span class="line">timeLabel = UILabel(frame: CGRect(x: 150, y: 80, width: 50, height: 20))</span><br><span class="line">//        timeLabel.backgroundColor = UIColor.green</span><br><span class="line">timeLabel.font = UIFont.systemFont(ofSize: 12)</span><br><span class="line">timeLabel.textColor = UIColor.gray</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">contentView.addSubview(titleLabel)</span><br><span class="line">contentView.addSubview(sourceLabel)</span><br><span class="line">contentView.addSubview(commentLabel)</span><br><span class="line">contentView.addSubview(timeLabel)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">required init?(coder aDecoder: NSCoder) &#123;</span><br><span class="line">fatalError(&quot;init(coder:) has not been implemented&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">override func awakeFromNib() &#123;</span><br><span class="line">super.awakeFromNib()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">override func setSelected(_ selected: Bool, animated: Bool) &#123;</span><br><span class="line">super.setSelected(selected, animated: animated)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">override func layoutSubviews() &#123;</span><br><span class="line"></span><br><span class="line">titleLabel.text = &quot;自定义UItableViewCell&quot;</span><br><span class="line"></span><br><span class="line">sourceLabel.text = &quot;Swift语言&quot;</span><br><span class="line">sourceLabel.sizeToFit()</span><br><span class="line"></span><br><span class="line">commentLabel.text = &quot;231评论&quot;</span><br><span class="line">commentLabel.sizeToFit()</span><br><span class="line">commentLabel.frame = CGRect(x: sourceLabel.frame.origin.x + sourceLabel.frame.width + 15.0, y: commentLabel.frame.origin.y, width: commentLabel.frame.width, height: commentLabel.frame.height)</span><br><span class="line"></span><br><span class="line">timeLabel.text = &quot;3分钟前&quot;</span><br><span class="line">timeLabel.sizeToFit()</span><br><span class="line">timeLabel.frame = CGRect(x: commentLabel.frame.origin.x + commentLabel.frame.width + 15.0, y: timeLabel.frame.origin.y, width: timeLabel.frame.width, height: timeLabel.frame.height)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>TYNewsViewController</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">import UIKit</span><br><span class="line"></span><br><span class="line">class TYNewsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource &#123;</span><br><span class="line"></span><br><span class="line">override func viewDidLoad() &#123;</span><br><span class="line">super.viewDidLoad()</span><br><span class="line"></span><br><span class="line">///创建Tableivew</span><br><span class="line">creatTableivew()</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func creatTableivew()&#123;</span><br><span class="line"></span><br><span class="line">let tableView = UITableView(frame: view.bounds)</span><br><span class="line"></span><br><span class="line">tableView.delegate = self</span><br><span class="line">tableView.dataSource = self</span><br><span class="line"></span><br><span class="line">view.addSubview(tableView)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int &#123;</span><br><span class="line">return 20</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell &#123;</span><br><span class="line"></span><br><span class="line">let cellID = &quot;testID&quot;</span><br><span class="line"></span><br><span class="line">var cell:TYNormalTableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellID) as? TYNormalTableViewCell</span><br><span class="line"></span><br><span class="line">if cell == nil &#123;</span><br><span class="line"></span><br><span class="line">cell = TYNormalTableViewCell(style: .subtitle, reuseIdentifier: cellID)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cell?.layoutSubviews()</span><br><span class="line"></span><br><span class="line">return cell!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">///设置行高</span><br><span class="line">func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -&gt; CGFloat &#123;</span><br><span class="line">return 100</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>实现结果如图所示</strong><br><img src="/2019/06/22/Swift-01-UITableView/WechatIMG1.png" alt></p>
+<p><strong>注：</strong> 写代码写了如下错误，反复纠结半小时<br><img src="/2019/06/22/Swift-01-UITableView/WechatIMG2.png" alt><br>错误提示：- Thread 1: Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value<br>控制台：Fatal error: Unexpectedly found nil while implicitly unwrapping an Optional value</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">小金渣</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2019/05/06/面试题知识点梳理/" class="next-post btn btn-default" title="面试题知识点梳理">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">面试题知识点梳理</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'Yx8l3CPhdT6l91ghPbw3AFWY-gzGzoHsz',
+            appKey: '9oIQV82CgBxpaAMJ2r9owrXi',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#UITableViewCell"><span class="toc-text">UITableViewCell</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#UITableView"><span class="toc-text">UITableView</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-样式"><span class="toc-text">1.样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-创建TableView"><span class="toc-text">2.创建TableView</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-UITableViewDataSource数据源方法"><span class="toc-text">3. UITableViewDataSource数据源方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-UITableViewDelegate代理方法"><span class="toc-text">4.UITableViewDelegate代理方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-UITableView重用机制"><span class="toc-text">5.UITableView重用机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-自定义UITableViewCell"><span class="toc-text">6.自定义UITableViewCell</span></a></li></ol></li>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2017
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
